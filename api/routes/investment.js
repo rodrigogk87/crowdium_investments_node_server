@@ -19,9 +19,7 @@ const contract = new ethers.Contract(
 
 
 /*
-{
-	"json":"{\"investment\": \"nordelta\",\"individual_amount\": 14.445}"
-}
+    {"investment": "nordelta","individual_amount": 14.445}
 */
 //post investment
 router.post('/', checkAuth, async (req, res, next) => {
@@ -47,15 +45,15 @@ router.post('/', checkAuth, async (req, res, next) => {
 })
 /*
 {
-	"json":"{\"investment\": \"nordelta\",\"individual_amount\": 14.445}",
-	"hash":"0x4c5aec74411ba5b745218fceb29be477f91515821f56da658a9798ce85f879c9"
+	"data": {"investment": "nordelta2","individual_amount": 14.445},
+	"hash":"0xbc9bda060dc9d3fc3e019b0325ccd23149e815ceb68ec9a7e08e29c18dbc9756"
 }
 */
 router.put('/', checkAuth, async (req, res, next) => {
 
     try {
         let hash = req.body.hash;
-        let json = req.body.json;
+        let json = JSON.stringify(req.body.data);
         //let json = req.body.json;
         
         const sqlGet = "SELECT * from investment WHERE  hash='"+hash+"'";
@@ -157,5 +155,25 @@ router.get('/', checkAuth, async (req, res, next) => {
     res.json(response)
 })
 
+
+router.get('/info', checkAuth, async (req, res, next) => {
+    try{
+        const sqlGet = "SELECT count(*) as txCount,MAX(updated_at) as lastTxDate from investment;";
+        connectionDB.query(sqlGet, async (err, response) => {
+            if (err) res.status(500).json(err);
+            else{
+                results=JSON.parse(JSON.stringify(response))
+                let result = {
+                        "txCount": results[0].txCount, 
+                        "lastTxDate": results[0].lastTxDate
+                    }
+
+                res.json(result)
+            }
+        })
+    } catch (error) {
+        res.status(500).json(error);
+    }
+})
 
 module.exports = router;
