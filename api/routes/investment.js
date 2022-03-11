@@ -155,7 +155,12 @@ router.get('/', checkAuth, async (req, res, next) => {
     res.json(response)
 })
 
-
+/*
+    {
+        "txCount": 3,
+        "lastTxDate": "2022-03-11T21:45:00.000Z"
+    }
+*/ 
 router.get('/info', checkAuth, async (req, res, next) => {
     try{
         const sqlGet = "SELECT count(*) as txCount,MAX(updated_at) as lastTxDate from investment;";
