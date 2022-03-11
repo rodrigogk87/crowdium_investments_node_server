@@ -27,7 +27,7 @@ const contract = new ethers.Contract(
 router.post('/', checkAuth, async (req, res, next) => {
 
     try {
-        let json = req.body.json;
+        let json = JSON.stringify(req.body);
 
         const tx = await contract.setInvestment(json);
 
