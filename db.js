@@ -1,10 +1,10 @@
 var mysql = require('mysql');
 
 var connectionDB = mysql.createConnection({
-    host: "",
-    user: "",
+    host: "localhost",
+    user: "root",
     password: "",
-    database: ""
+    database: "restful_api"
 });
 
 connectionDB.connect(function (err) {

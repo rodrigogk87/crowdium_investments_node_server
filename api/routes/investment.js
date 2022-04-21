@@ -88,7 +88,8 @@ router.put('/', checkAuth, async (req, res, next) => {
         "index": 0,
         "data": {
             "investment": "nordelta",
-            "individual_amount": 5.25
+            "individual_amount": 5.25,
+            ...
         }
     }
 */
