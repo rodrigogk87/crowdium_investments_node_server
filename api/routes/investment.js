@@ -8,7 +8,7 @@ const CrowdiumInvestment = require("../artifacts/contracts/CrowdiumInvestment.so
 const Web3  = require('web3');
 
 const web3 = new Web3();
-const provider = new ethers.providers.AlchemyProvider(configs.ALCHEMY_NETWORK,configs.ALCHEMY_KEY);
+const provider = new ethers.providers.InfuraProvider(configs.INFURA_NETWORK,configs.INFURA_KEY);
 const signer = (new ethers.Wallet(configs.WALLET_KEY)).connect(provider);
 const contract = new ethers.Contract(
     configs.CONTRACT_ADDRESS,
